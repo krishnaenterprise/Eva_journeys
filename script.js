@@ -182,9 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     const img = new Image();
                     // Timeout ensures it never hangs if local browser doesn't fire onerror
                     const timeout = setTimeout(() => resolve(null), 250);
-                    img.onload = () => { clearTimeout(timeout); resolve(`assets/reviews/${index}.${ext}`); };
+                    img.onload = () => { clearTimeout(timeout); resolve(`reviews/${index}.${ext}`); };
                     img.onerror = () => { clearTimeout(timeout); resolve(null); };
-                    img.src = `assets/reviews/${index}.${ext}`;
+                    img.src = `reviews/${index}.${ext}`;
                 });
             };
 
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 validImages = results.filter(src => src !== null);
                 
                 if (validImages.length === 0) {
-                    slideshowContainer.innerHTML = '<p style="text-align:center; padding-top: 15%; color: var(--text);">Upload review screenshots (1.jpg, 2.png) to the assets/reviews/ folder.</p>';
+                    slideshowContainer.innerHTML = '<p style="text-align:center; padding-top: 15%; color: var(--text);">Upload review screenshots (1.jpg, 2.png) to the reviews/ folder.</p>';
                     const loaderEl = document.getElementById('reviewLoader');
                     if (loaderEl) loaderEl.style.display = 'none';
                     return;
@@ -320,9 +320,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return new Promise((resolve) => {
                 const img = new Image();
                 const timeout = setTimeout(() => resolve(null), 250);
-                img.onload = () => { clearTimeout(timeout); resolve(`assets/archive/${index}.${ext}`); };
+                img.onload = () => { clearTimeout(timeout); resolve(`archive/${index}.${ext}`); };
                 img.onerror = () => { clearTimeout(timeout); resolve(null); };
-                img.src = `assets/archive/${index}.${ext}`;
+                img.src = `archive/${index}.${ext}`;
             });
         };
 
@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
             validArchiveImages = results.filter(src => src !== null);
             
             if (validArchiveImages.length === 0) {
-                archiveContainer.innerHTML = '<p style="text-align:center; width: 100%; color: #666;">No archive photos found. Upload to assets/archive/</p>';
+                archiveContainer.innerHTML = '<p style="text-align:center; width: 100%; color: #666;">No archive photos found. Upload to archive/</p>';
                 return;
             }
             
