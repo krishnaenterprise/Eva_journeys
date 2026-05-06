@@ -9,6 +9,73 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Lightweight skeleton state for real content images.
+    const prepareLazyImage = (img, src = null) => {
+        if (!img) return;
+
+        const skipSkeleton = img.closest('.hero-slideshow') || img.closest('.logo');
+        if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+        if (!skipSkeleton && !img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+
+        if (!skipSkeleton) {
+            img.classList.add('lazy-media');
+            img.classList.remove('is-loaded', 'has-error');
+
+            img.addEventListener('load', () => {
+                img.classList.add('is-loaded');
+            }, { once: true });
+
+            img.addEventListener('error', () => {
+                img.classList.add('is-loaded', 'has-error');
+            }, { once: true });
+        }
+
+        if (src) {
+            img.src = src;
+        } else if (!skipSkeleton && img.complete && img.naturalWidth > 0) {
+            img.classList.add('is-loaded');
+        }
+    };
+
+    document.querySelectorAll('img').forEach((img) => prepareLazyImage(img));
+
+    const mediaManifest = {
+        reviews: [
+            'assets/optimized/reviews/1.webp',
+            'assets/optimized/reviews/2.webp',
+            'assets/optimized/reviews/3.webp',
+            'assets/optimized/reviews/4.webp',
+            'assets/optimized/reviews/5.webp'
+        ],
+        archive: [
+            'assets/optimized/archive/1.webp',
+            'assets/optimized/archive/2.webp',
+            'assets/optimized/archive/3.webp',
+            'assets/optimized/archive/4.webp',
+            'assets/optimized/archive/5.webp',
+            'assets/optimized/archive/6.webp',
+            'assets/optimized/archive/7.webp',
+            'assets/optimized/archive/8.webp',
+            'assets/optimized/archive/9.webp'
+        ]
+    };
+
+    const loadDeferredHeroImages = () => {
+        document.querySelectorAll('.hero-slideshow img[data-src]').forEach((img) => {
+            if (!img.getAttribute('src')) {
+                img.setAttribute('src', img.dataset.src);
+            }
+        });
+    };
+
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadDeferredHeroImages, { timeout: 1800 });
+    } else {
+        window.addEventListener('load', () => {
+            setTimeout(loadDeferredHeroImages, 500);
+        }, { once: true });
+    }
+
     // 2. Navbar Scroll Effect
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
@@ -174,31 +241,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (slideshowContainer) {
             let validImages = [];
-            let maxChecks = 15; // Checks up to 15 images (1 to 15)
-            
-            // Function to check if an image exists with a timeout fallback
-            const checkImage = (index, ext) => {
-                return new Promise((resolve) => {
-                    const img = new Image();
-                    // Timeout ensures it never hangs if local browser doesn't fire onerror
-                    const timeout = setTimeout(() => resolve(null), 250);
-                    img.onload = () => { clearTimeout(timeout); resolve(`reviews/${index}.${ext}`); };
-                    img.onerror = () => { clearTimeout(timeout); resolve(null); };
-                    img.src = `reviews/${index}.${ext}`;
-                });
-            };
 
-            // Discover images
+            // Use a manifest so production servers do not probe missing files on every visit.
             const discoverImages = async () => {
-                let promises = [];
-                for (let i = 1; i <= maxChecks; i++) {
-                    promises.push(checkImage(i, 'jpg'));
-                    promises.push(checkImage(i, 'png'));
-                    promises.push(checkImage(i, 'jpeg'));
-                }
-                
-                const results = await Promise.all(promises);
-                validImages = results.filter(src => src !== null);
+                validImages = [...mediaManifest.reviews];
                 
                 if (validImages.length === 0) {
                     slideshowContainer.innerHTML = '<p style="text-align:center; padding-top: 15%; color: var(--text);">Upload review screenshots (1.jpg, 2.png) to the reviews/ folder.</p>';
@@ -219,7 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     imgWrap.className = 'review-img-wrap';
                     
                     const imgEl = document.createElement('img');
-                    imgEl.src = src;
+                    imgEl.alt = 'Traveler review screenshot';
+                    prepareLazyImage(imgEl, src);
                     
                     imgWrap.appendChild(imgEl);
                     slide.appendChild(imgWrap);
@@ -314,30 +361,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const archiveContainer = document.getElementById('archivePhotos');
     if (archiveContainer) {
         let validArchiveImages = [];
-        let maxArchiveChecks = 30; // Check up to 30 images
-        
-        const checkArchiveImage = (index, ext) => {
-            return new Promise((resolve) => {
-                const img = new Image();
-                const timeout = setTimeout(() => resolve(null), 250);
-                img.onload = () => { clearTimeout(timeout); resolve(`archive/${index}.${ext}`); };
-                img.onerror = () => { clearTimeout(timeout); resolve(null); };
-                img.src = `archive/${index}.${ext}`;
-            });
-        };
 
         const discoverArchiveImages = async () => {
-            let promises = [];
-            for (let i = 1; i <= maxArchiveChecks; i++) {
-                promises.push(checkArchiveImage(i, 'jpg'));
-                promises.push(checkArchiveImage(i, 'jpeg'));
-                promises.push(checkArchiveImage(i, 'png'));
-                promises.push(checkArchiveImage(i, 'heic'));
-                promises.push(checkArchiveImage(i, 'HEIC'));
-            }
-            
-            const results = await Promise.all(promises);
-            validArchiveImages = results.filter(src => src !== null);
+            validArchiveImages = [...mediaManifest.archive];
             
             if (validArchiveImages.length === 0) {
                 archiveContainer.innerHTML = '<p style="text-align:center; width: 100%; color: #666;">No archive photos found. Upload to archive/</p>';
@@ -358,7 +384,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 frame.style.transform = `rotate(${rotation}deg)`;
                 
                 const imgEl = document.createElement('img');
-                imgEl.src = src;
+                imgEl.alt = 'Previous trip memory';
+                prepareLazyImage(imgEl, src);
                 
                 frame.appendChild(imgEl);
                 archiveContainer.appendChild(frame);
@@ -382,7 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     frameToSwap.classList.add('fade-out');
                     
                     setTimeout(() => {
-                        imgToSwap.src = newSrc;
+                        prepareLazyImage(imgToSwap, newSrc);
                         const rotation = (Math.random() * 12 - 6).toFixed(1);
                         frameToSwap.style.transform = `rotate(${rotation}deg)`;
                         frameToSwap.classList.remove('fade-out');

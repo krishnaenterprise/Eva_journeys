@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eva Journeys | Premium Travel Experiences</title>
     <meta name="description" content="Discover breathtaking destinations with Eva Journeys. Premium travel packages based in Gujarat.">
+    <link rel="icon" href="favicon.ico" sizes="any">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +20,8 @@
 
     <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link rel="preload" as="image" href="assets/optimized/hero.webp">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
@@ -42,7 +45,7 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo"><img src="assets/logo/light.jpg" alt="Eva Journeys"></a>
+            <a href="#" class="logo"><img src="assets/optimized/logo/light.webp" alt="Eva Journeys" decoding="async"></a>
             <ul class="nav-links">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#destinations">Destinations</a></li>
@@ -71,8 +74,8 @@
     <header id="home" class="hero">
         <div class="hero-bg">
             <div class="hero-slideshow zoom-effect">
-                <img src="assets/hero.jpg" alt="Stunning Landscape 1">
-                <img src="assets/hero2.jpg" alt="Stunning Landscape 2">
+                <img src="assets/optimized/hero.webp" alt="Stunning Landscape 1" loading="eager" decoding="async" fetchpriority="high">
+                <img data-src="assets/optimized/hero2.webp" alt="Stunning Landscape 2" loading="lazy" decoding="async" fetchpriority="low">
             </div>
             <div class="overlay"></div>
         </div>
@@ -137,7 +140,7 @@
                     <!-- Dest 1 -->
                     <div class="swiper-slide">
                         <div class="dest-card">
-                            <img src="assets/dest_dubai_1777758841607.png" alt="Dubai">
+                            <img src="assets/optimized/dest_dubai_1777758841607.webp" alt="Dubai" loading="lazy" decoding="async">
                             <div class="dest-overlay">
                                 <h3>Dubai</h3>
                                 <p>15+ Tours</p>
@@ -147,7 +150,7 @@
                     <!-- Dest 2 -->
                     <div class="swiper-slide">
                         <div class="dest-card">
-                            <img src="assets/dest_kerala_1777758824512.png" alt="Kerala">
+                            <img src="assets/optimized/dest_kerala_1777758824512.webp" alt="Kerala" loading="lazy" decoding="async">
                             <div class="dest-overlay">
                                 <h3>Kerala</h3>
                                 <p>12+ Tours</p>
@@ -157,7 +160,7 @@
                     <!-- Dest 3 -->
                     <div class="swiper-slide">
                         <div class="dest-card">
-                            <img src="assets/package_beach_1777758374058.png" alt="Maldives">
+                            <img src="assets/optimized/package_beach_1777758374058.webp" alt="Maldives" loading="lazy" decoding="async">
                             <div class="dest-overlay">
                                 <h3>Maldives</h3>
                                 <p>8+ Tours</p>
@@ -167,7 +170,7 @@
                     <!-- Dest 4 -->
                     <div class="swiper-slide">
                         <div class="dest-card">
-                            <img src="assets/package_mountain_1777758392898.png" alt="Kashmir">
+                            <img src="assets/optimized/package_mountain_1777758392898.webp" alt="Kashmir" loading="lazy" decoding="async">
                             <div class="dest-overlay">
                                 <h3>Kashmir</h3>
                                 <p>10+ Tours</p>
@@ -177,7 +180,7 @@
                     <!-- Dest 5 -->
                     <div class="swiper-slide">
                         <div class="dest-card">
-                            <img src="assets/package_heritage_1777758407944.png" alt="Rajasthan">
+                            <img src="assets/optimized/package_heritage_1777758407944.webp" alt="Rajasthan" loading="lazy" decoding="async">
                             <div class="dest-overlay">
                                 <h3>Rajasthan</h3>
                                 <p>20+ Tours</p>
@@ -187,7 +190,7 @@
                     <!-- Dest 6 -->
                     <div class="swiper-slide">
                         <div class="dest-card">
-                            <img src="assets/goa.jpg" alt="Goa">
+                            <img src="assets/optimized/goa.webp" alt="Goa" loading="lazy" decoding="async">
                             <div class="dest-overlay">
                                 <h3>Goa</h3>
                                 <p>18+ Tours</p>
@@ -197,7 +200,7 @@
                     <!-- Dest 7 -->
                     <div class="swiper-slide">
                         <div class="dest-card">
-                            <img src="assets/switzerland.jpg" alt="Switzerland">
+                            <img src="assets/optimized/switzerland.webp" alt="Switzerland" loading="lazy" decoding="async">
                             <div class="dest-overlay">
                                 <h3>Switzerland</h3>
                                 <p>5+ Tours</p>
@@ -207,7 +210,7 @@
                     <!-- Dest 8 -->
                     <div class="swiper-slide">
                         <div class="dest-card">
-                            <img src="assets/paris.jpg" alt="Paris">
+                            <img src="assets/optimized/paris.webp" alt="Paris" loading="lazy" decoding="async">
                             <div class="dest-overlay">
                                 <h3>Paris</h3>
                                 <p>14+ Tours</p>
@@ -217,7 +220,7 @@
                     <!-- Dest 9 -->
                     <div class="swiper-slide">
                         <div class="dest-card">
-                            <img src="assets/singapore.jpg" alt="Singapore">
+                            <img src="assets/optimized/singapore.webp" alt="Singapore" loading="lazy" decoding="async">
                             <div class="dest-overlay">
                                 <h3>Singapore</h3>
                                 <p>22+ Tours</p>
@@ -227,7 +230,7 @@
                     <!-- Dest 10 -->
                     <div class="swiper-slide">
                         <div class="dest-card">
-                            <img src="assets/bali.jpg" alt="Bali">
+                            <img src="assets/optimized/bali.webp" alt="Bali" loading="lazy" decoding="async">
                             <div class="dest-overlay">
                                 <h3>Bali</h3>
                                 <p>25+ Tours</p>
@@ -255,7 +258,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="package-img">
-                        <img src="assets/package_beach_1777758374058.png" alt="Maldives Beach Resort">
+                        <img src="assets/optimized/package_beach_1777758374058.webp" alt="Maldives Beach Resort" loading="lazy" decoding="async">
                         <div class="badge-discount">-15%</div>
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
@@ -289,7 +292,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="package-img">
-                        <img src="assets/package_mountain_1777758392898.png" alt="Kashmir Snow Mountains">
+                        <img src="assets/optimized/package_mountain_1777758392898.webp" alt="Kashmir Snow Mountains" loading="lazy" decoding="async">
                         <div class="badge-featured">Featured</div>
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
@@ -323,7 +326,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="package-img">
-                        <img src="assets/package_heritage_1777758407944.png" alt="Rajasthan Heritage Palace">
+                        <img src="assets/optimized/package_heritage_1777758407944.webp" alt="Rajasthan Heritage Palace" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -356,7 +359,7 @@
                 <div class="swiper-slide">
                  <div class="package-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="package-img">
-                        <img src="assets/dest_kerala_1777758824512.png" alt="Kerala Backwaters">
+                        <img src="assets/optimized/dest_kerala_1777758824512.webp" alt="Kerala Backwaters" loading="lazy" decoding="async">
                         <div class="badge-discount">-10%</div>
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
@@ -391,7 +394,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up">
                     <div class="package-img">
-                        <img src="assets/pack_goa_1777761896810.png" alt="Goa Beach Party">
+                        <img src="assets/optimized/pack_goa_1777761896810.webp" alt="Goa Beach Party" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -422,7 +425,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up">
                     <div class="package-img">
-                        <img src="assets/pack_swiss_1777761917902.png" alt="Switzerland Alpine Magic">
+                        <img src="assets/optimized/pack_swiss_1777761917902.webp" alt="Switzerland Alpine Magic" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -453,7 +456,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up">
                     <div class="package-img">
-                        <img src="assets/pack_paris_1777761934384.png" alt="Paris Romance & Heritage">
+                        <img src="assets/optimized/pack_paris_1777761934384.webp" alt="Paris Romance & Heritage" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -484,7 +487,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up">
                     <div class="package-img">
-                        <img src="assets/pack_singapore_1777761954866.png" alt="Singapore City Tour">
+                        <img src="assets/optimized/pack_singapore_1777761954866.webp" alt="Singapore City Tour" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -515,7 +518,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up">
                     <div class="package-img">
-                        <img src="assets/pack_bali_1777761974206.png" alt="Bali Tropical Vibes">
+                        <img src="assets/optimized/pack_bali_1777761974206.webp" alt="Bali Tropical Vibes" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -546,7 +549,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up">
                     <div class="package-img">
-                        <img src="assets/dest_dubai_1777758841607.png" alt="Dubai Desert Safari">
+                        <img src="assets/optimized/dest_dubai_1777758841607.webp" alt="Dubai Desert Safari" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -577,7 +580,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up">
                     <div class="package-img">
-                        <img src="assets/pack_andaman_1777761993773.png" alt="Andaman Islands Paradise">
+                        <img src="assets/optimized/pack_andaman_1777761993773.webp" alt="Andaman Islands Paradise" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -608,7 +611,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up">
                     <div class="package-img">
-                        <img src="assets/hero_travel_1777758355643.png" alt="Sikkim Delights">
+                        <img src="assets/optimized/hero_travel_1777758355643.webp" alt="Sikkim Delights" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -639,7 +642,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up">
                     <div class="package-img">
-                        <img src="assets/pack_himachal_1777762014773.png" alt="Himachal Adventure">
+                        <img src="assets/optimized/pack_himachal_1777762014773.webp" alt="Himachal Adventure" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -670,7 +673,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up">
                     <div class="package-img">
-                        <img src="assets/pack_ladakh_1777762031753.png" alt="Leh Ladakh Bike Trip">
+                        <img src="assets/optimized/pack_ladakh_1777762031753.webp" alt="Leh Ladakh Bike Trip" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -701,7 +704,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up">
                     <div class="package-img">
-                        <img src="assets/pack_meghalaya_1777762048985.png" alt="Meghalaya Roots">
+                        <img src="assets/optimized/pack_meghalaya_1777762048985.webp" alt="Meghalaya Roots" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -732,7 +735,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up">
                     <div class="package-img">
-                        <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&q=80&w=800" alt="Thailand Highlights">
+                        <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&q=80&w=800" alt="Thailand Highlights" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -763,7 +766,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up">
                     <div class="package-img">
-                        <img src="https://images.unsplash.com/photo-1515542622106-78bda8cd447e?auto=format&fit=crop&q=80&w=800" alt="Europe Grand Tour">
+                        <img src="https://images.unsplash.com/photo-1515542622106-78bda8cd447e?auto=format&fit=crop&q=80&w=800" alt="Europe Grand Tour" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -794,7 +797,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up">
                     <div class="package-img">
-                        <img src="https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&q=80&w=800" alt="Vietnam Golden Bridge">
+                        <img src="https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&q=80&w=800" alt="Vietnam Golden Bridge" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -825,7 +828,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up">
                     <div class="package-img">
-                        <img src="https://images.unsplash.com/photo-1586227740560-8cf2732c1531?auto=format&fit=crop&q=80&w=800" alt="Sri Lanka Cultural">
+                        <img src="https://images.unsplash.com/photo-1586227740560-8cf2732c1531?auto=format&fit=crop&q=80&w=800" alt="Sri Lanka Cultural" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -856,7 +859,7 @@
                 <div class="swiper-slide">
                 <div class="package-card" data-aos="fade-up">
                     <div class="package-img">
-                        <img src="https://images.unsplash.com/photo-1596710104473-cbcf00d89269?auto=format&fit=crop&q=80&w=800" alt="Gujarat Rann Utsav">
+                        <img src="https://images.unsplash.com/photo-1596710104473-cbcf00d89269?auto=format&fit=crop&q=80&w=800" alt="Gujarat Rann Utsav" loading="lazy" decoding="async">
                         <div class="wishlist-btn"><i class="far fa-heart"></i></div>
                     </div>
                     <div class="package-content">
@@ -897,7 +900,7 @@
         <div class="container why-us-grid">
             <div class="why-us-image" data-aos="fade-right">
                 <div class="image-wrapper">
-                    <img src="assets/dest_dubai_1777758841607.png" alt="Travel Experience" class="main-img">
+                    <img src="assets/optimized/dest_dubai_1777758841607.webp" alt="Travel Experience" class="main-img" loading="lazy" decoding="async">
                     <div class="experience-badge">
                         <span class="number"><i class="fas fa-star" style="font-size: 2.5rem; margin-bottom: 5px; display: block;"></i></span>
                         <span class="text">Expert Travel<br>Curators</span>
@@ -984,7 +987,7 @@
                 <!-- Blog 1 -->
                 <div class="blog-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="blog-img">
-                        <img src="assets/blog_1_1777758883075.png" alt="Travel Essentials">
+                        <img src="assets/optimized/blog_1_1777758883075.webp" alt="Travel Essentials" loading="lazy" decoding="async">
                     </div>
                     <div class="blog-content">
                         <div class="blog-meta">
@@ -999,7 +1002,7 @@
                 <!-- Blog 2 -->
                 <div class="blog-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="blog-img">
-                        <img src="assets/dest_dubai_1777758841607.png" alt="Dubai Guide">
+                        <img src="assets/optimized/dest_dubai_1777758841607.webp" alt="Dubai Guide" loading="lazy" decoding="async">
                     </div>
                     <div class="blog-content">
                         <div class="blog-meta">
@@ -1014,7 +1017,7 @@
                 <!-- Blog 3 -->
                 <div class="blog-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="blog-img">
-                        <img src="assets/hero_travel_1777758355643.png" alt="Himalayas">
+                        <img src="assets/optimized/hero_travel_1777758355643.webp" alt="Himalayas" loading="lazy" decoding="async">
                     </div>
                     <div class="blog-content">
                         <div class="blog-meta">
@@ -1073,7 +1076,7 @@
         <div class="footer-top">
             <div class="container footer-grid">
                 <div class="footer-col brand-col">
-                    <a href="#" class="logo footer-logo"><img src="assets/logo/light.jpg" alt="Eva Journeys"></a>
+                    <a href="#" class="logo footer-logo"><img src="assets/optimized/logo/light.webp" alt="Eva Journeys" loading="lazy" decoding="async"></a>
                     <p class="footer-desc">Your premium travel partner in Gujarat. We craft unforgettable experiences across the globe with unmatched luxury and comfort.</p>
                     <a href="https://www.instagram.com/_eva_journeys" target="_blank" class="ig-btn-footer">
                         <i class="fab fa-instagram"></i> Follow @_eva_journeys

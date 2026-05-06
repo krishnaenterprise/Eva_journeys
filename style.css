@@ -36,6 +36,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
@@ -44,6 +45,7 @@ body {
     background-color: var(--white);
     line-height: 1.6;
     overflow-x: hidden;
+    width: 100%;
 }
 
 h1,
@@ -73,11 +75,44 @@ img {
     display: block;
 }
 
+img.lazy-media {
+    background-color: #EAF3F0;
+    background-image: linear-gradient(100deg, #EAF3F0 0%, #F8FCFB 45%, #DDEBE7 70%, #EAF3F0 100%);
+    background-size: 220% 100%;
+}
+
+img.lazy-media:not(.is-loaded) {
+    animation: lazySkeleton 1.25s ease-in-out infinite;
+}
+
+img.lazy-media.is-loaded,
+img.lazy-media.has-error {
+    animation: none;
+    background: transparent;
+}
+
+@keyframes lazySkeleton {
+    from {
+        background-position: 120% 0;
+    }
+
+    to {
+        background-position: -120% 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    img.lazy-media:not(.is-loaded) {
+        animation: none;
+    }
+}
+
 .container {
     width: 100%;
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 24px;
+    position: relative;
 }
 
 .section {
@@ -1758,7 +1793,7 @@ img {
     }
 
     .container {
-        padding: 0 16px;
+        padding: 0 20px;
     }
 
     .mt-50 {
@@ -1798,7 +1833,8 @@ img {
     }
 
     .logo img {
-        max-height: 40px;
+        max-height: 35px;
+        width: auto;
     }
 
     /* ===== Hero Mobile ===== */
@@ -1807,8 +1843,12 @@ img {
         height: 70vh;
     }
 
+    .hero-content {
+        padding-top: 30px;
+    }
+
     .hero-content h1 {
-        font-size: 2.2rem;
+        font-size: 2.1rem;
         line-height: 1.2;
     }
 
