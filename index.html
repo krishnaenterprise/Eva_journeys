@@ -24,7 +24,7 @@
     <link rel="preload" as="image" href="assets/optimized/hero.webp">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css?v=20260603">
+    <link rel="stylesheet" href="style.css?v=20260603-2">
 </head>
 <body>
     <!-- Topbar -->
@@ -80,28 +80,15 @@
             <div class="overlay"></div>
         </div>
 
-        <!-- Travel Animation Scene -->
+        <!-- Travel Animation Scene (desktop only, kept clear of the headline) -->
         <div class="hero-scene" aria-hidden="true">
-            <!-- Drifting clouds -->
-            <span class="cloud cloud-1"><i class="fas fa-cloud"></i></span>
-            <span class="cloud cloud-2"><i class="fas fa-cloud"></i></span>
-            <span class="cloud cloud-3"><i class="fas fa-cloud"></i></span>
-
-            <!-- Flying plane with dashed flight path -->
             <div class="flight-path">
-                <svg viewBox="0 0 1440 220" preserveAspectRatio="none" class="flight-line">
-                    <path d="M-50,180 C300,40 700,40 1000,120 C1200,170 1350,90 1500,30" fill="none"
-                          stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-dasharray="8 10" stroke-linecap="round"/>
+                <svg viewBox="0 0 1440 200" preserveAspectRatio="none" class="flight-line">
+                    <path d="M-40,150 C260,30 620,30 900,90 C1140,140 1320,70 1500,20" fill="none"
+                          stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-dasharray="6 9" stroke-linecap="round"/>
                 </svg>
                 <i class="fas fa-plane plane"></i>
             </div>
-
-            <!-- Floating travel icons -->
-            <span class="float-icon fi-1"><i class="fas fa-map-marker-alt"></i></span>
-            <span class="float-icon fi-2"><i class="fas fa-compass"></i></span>
-            <span class="float-icon fi-3"><i class="fas fa-paper-plane"></i></span>
-            <span class="float-icon fi-4"><i class="fas fa-umbrella-beach"></i></span>
-            <span class="float-icon fi-5"><i class="fas fa-mountain"></i></span>
         </div>
 
         <div class="container hero-content">
@@ -110,7 +97,7 @@
             <p data-aos="fade-up" data-aos-delay="200">Curated, premium luxury travel experiences designed for the modern explorer. From pristine beaches to majestic mountains.</p>
             <div class="hero-buttons" data-aos="fade-up" data-aos-delay="300">
                 <a href="#packages" class="btn btn-primary btn-large">Explore Packages</a>
-                <a href="#destinations" class="btn btn-outline-white btn-large"><i class="fas fa-play-circle"></i> View Destinations</a>
+                <a href="#destinations" class="btn btn-outline-white btn-large"><i class="fas fa-map-marked-alt"></i> View Destinations</a>
             </div>
 
             <!-- Trust strip -->
@@ -1232,6 +1219,6 @@
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <!-- Custom JS -->
-    <script src="script.js?v=20260603"></script>
+    <script src="script.js?v=20260603-2"></script>
 </body>
 </html>
