@@ -79,15 +79,55 @@
             </div>
             <div class="overlay"></div>
         </div>
+
+        <!-- Travel Animation Scene -->
+        <div class="hero-scene" aria-hidden="true">
+            <!-- Drifting clouds -->
+            <span class="cloud cloud-1"><i class="fas fa-cloud"></i></span>
+            <span class="cloud cloud-2"><i class="fas fa-cloud"></i></span>
+            <span class="cloud cloud-3"><i class="fas fa-cloud"></i></span>
+
+            <!-- Flying plane with dashed flight path -->
+            <div class="flight-path">
+                <svg viewBox="0 0 1440 220" preserveAspectRatio="none" class="flight-line">
+                    <path d="M-50,180 C300,40 700,40 1000,120 C1200,170 1350,90 1500,30" fill="none"
+                          stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-dasharray="8 10" stroke-linecap="round"/>
+                </svg>
+                <i class="fas fa-plane plane"></i>
+            </div>
+
+            <!-- Floating travel icons -->
+            <span class="float-icon fi-1"><i class="fas fa-map-marker-alt"></i></span>
+            <span class="float-icon fi-2"><i class="fas fa-compass"></i></span>
+            <span class="float-icon fi-3"><i class="fas fa-paper-plane"></i></span>
+            <span class="float-icon fi-4"><i class="fas fa-umbrella-beach"></i></span>
+            <span class="float-icon fi-5"><i class="fas fa-mountain"></i></span>
+        </div>
+
         <div class="container hero-content">
-            <span class="hero-subtitle" data-aos="fade-up">Elevate Every Mile</span>
+            <span class="hero-subtitle" data-aos="fade-up"><i class="fas fa-plane-departure"></i> Elevate Every Mile</span>
             <h1 data-aos="fade-up" data-aos-delay="100">Discover Your Next <br><span class="text-highlight">Great Adventure</span></h1>
             <p data-aos="fade-up" data-aos-delay="200">Curated, premium luxury travel experiences designed for the modern explorer. From pristine beaches to majestic mountains.</p>
             <div class="hero-buttons" data-aos="fade-up" data-aos-delay="300">
                 <a href="#packages" class="btn btn-primary btn-large">Explore Packages</a>
                 <a href="#destinations" class="btn btn-outline-white btn-large"><i class="fas fa-play-circle"></i> View Destinations</a>
             </div>
+
+            <!-- Trust strip -->
+            <div class="hero-trust" data-aos="fade-up" data-aos-delay="400">
+                <div class="trust-item"><i class="fas fa-globe-asia"></i> <span><strong>50+</strong> Destinations</span></div>
+                <div class="trust-divider"></div>
+                <div class="trust-item"><i class="fas fa-star"></i> <span><strong>4.9</strong> Traveler Rating</span></div>
+                <div class="trust-divider"></div>
+                <div class="trust-item"><i class="fas fa-headset"></i> <span><strong>24/7</strong> Expert Support</span></div>
+            </div>
         </div>
+
+        <!-- Scroll cue -->
+        <a href="#destinations" class="scroll-cue" aria-label="Scroll down">
+            <span class="mouse"><span class="wheel"></span></span>
+            <span class="scroll-text">Scroll to explore</span>
+        </a>
     </header>
 
     <!-- Advanced Search Widget -->
@@ -963,6 +1003,20 @@
                 <p>Read about the amazing experiences from our beloved clients.</p>
             </div>
 
+            <!-- Demo Review Carousel (text testimonials) -->
+            <div class="swiper testimonials-slider" data-aos="fade-up" data-aos-delay="100">
+                <div class="swiper-wrapper" id="testimonialsWrapper">
+                    <!-- Testimonial cards injected by script.js -->
+                </div>
+                <div class="swiper-pagination testimonials-pagination"></div>
+            </div>
+
+            <!-- Real Screenshot Reviews -->
+            <div class="reviews-subhead text-center" data-aos="fade-up">
+                <h3><i class="fab fa-whatsapp"></i> Straight From Our Travelers</h3>
+                <p>Real, unedited messages we've received after every journey.</p>
+            </div>
+
             <div class="review-swiper-container" data-aos="fade-up" data-aos-delay="100" style="position: relative;">
                 <div class="swiper" id="reviewSwiper">
                     <div class="swiper-wrapper" id="reviewSlideshow">
@@ -1050,22 +1104,47 @@
         </div>
     </section>
 
-    <!-- Newsletter -->
+    <!-- Newsletter / Subscribe -->
     <section class="newsletter-section">
         <div class="container" data-aos="zoom-in">
             <div class="newsletter-box">
-                <div class="newsletter-icon">
-                    <i class="fas fa-paper-plane"></i>
+                <div class="newsletter-head">
+                    <div class="newsletter-icon">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <div class="newsletter-content">
+                        <span class="newsletter-tag">Stay In The Loop</span>
+                        <h2>Get News &amp; Exclusive Offers</h2>
+                        <p>Subscribe for handpicked deals, new destinations and travel inspiration — straight to your inbox.</p>
+                    </div>
                 </div>
-                <div class="newsletter-content">
-                    <h2>Get Updates & Special Offers</h2>
-                </div>
-                <form class="newsletter-form" id="newsletter-form">
-                    <input type="email" id="newsletter-email" placeholder="Enter your email address" required>
+
+                <form class="newsletter-form" id="newsletter-form" novalidate>
+                    <!-- Web3Forms configuration -->
+                    <input type="hidden" name="access_key" value="9fddfdc3-1ca5-4fd9-8bac-dcbaaa601b09">
+                    <input type="hidden" name="subject" value="New Subscriber — Eva Journeys">
+                    <input type="hidden" name="from_name" value="Eva Journeys Website">
+                    <!-- Honeypot spam protection -->
+                    <input type="checkbox" name="botcheck" class="hidden" style="display:none;" tabindex="-1" autocomplete="off">
+
+                    <div class="nl-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="name" id="newsletter-name" placeholder="Your name" autocomplete="name" required>
+                    </div>
+                    <div class="nl-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" name="email" id="newsletter-email" placeholder="Email address" autocomplete="email" required>
+                    </div>
+                    <div class="nl-field">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" name="mobile" id="newsletter-mobile" placeholder="Mobile number" autocomplete="tel" inputmode="numeric" required>
+                    </div>
                     <button type="submit" class="btn btn-newsletter">Subscribe <i class="fas fa-arrow-right"></i></button>
                 </form>
+
+                <p class="newsletter-error" id="newsletter-error" style="display:none;"></p>
                 <div class="newsletter-success" id="newsletter-success" style="display: none;">
-                    <i class="fas fa-check-circle"></i> Thank you! You're subscribed.
+                    <i class="fas fa-check-circle"></i> Thank you! You're subscribed. We'll be in touch soon.
                 </div>
             </div>
         </div>

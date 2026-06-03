@@ -175,41 +175,68 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. Newsletter Form Handler (Google Sheets)
-    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzQi72oWv-QlPxlhF9MRMEGNM6yOwsJT1_EKUJTuEN4zmEiMK0YHkfDX6Q6udlwnWKI/exec';
+    // 6. Newsletter / Subscribe Form Handler (Web3Forms)
+    const WEB3FORMS_URL = 'https://api.web3forms.com/submit';
 
     const newsletterForm = document.getElementById('newsletter-form');
     if (newsletterForm) {
-        newsletterForm.addEventListener('submit', (e) => {
+        const successMsg = document.getElementById('newsletter-success');
+        const errorMsg = document.getElementById('newsletter-error');
+        const submitBtn = newsletterForm.querySelector('button[type="submit"]');
+        const btnDefault = submitBtn ? submitBtn.innerHTML : 'Subscribe';
+
+        const showError = (text) => {
+            if (!errorMsg) return;
+            errorMsg.textContent = text;
+            errorMsg.style.display = 'block';
+        };
+
+        newsletterForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const emailInput = document.getElementById('newsletter-email');
-            const email = emailInput ? emailInput.value.trim() : '';
-            const successMsg = document.getElementById('newsletter-success');
-            const submitBtn = newsletterForm.querySelector('button');
+            if (errorMsg) errorMsg.style.display = 'none';
 
-            if (!email) return;
+            const name = (document.getElementById('newsletter-name')?.value || '').trim();
+            const email = (document.getElementById('newsletter-email')?.value || '').trim();
+            const mobile = (document.getElementById('newsletter-mobile')?.value || '').trim();
 
-            // Show loading state
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            // Basic client-side validation for all three fields
+            if (!name || !email || !mobile) {
+                showError('Please fill in your name, email and mobile number.');
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showError('Please enter a valid email address.');
+                return;
+            }
+            if (!/^[+]?[\d\s-]{7,15}$/.test(mobile)) {
+                showError('Please enter a valid mobile number.');
+                return;
+            }
+
+            // Loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
             submitBtn.disabled = true;
 
-            // Send to Google Sheets
-            fetch(GOOGLE_SHEET_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email, date: new Date().toLocaleString() })
-            })
-            .then(() => {
-                // Show success (no-cors always resolves, but Apps Script will save it)
-                newsletterForm.style.display = 'none';
-                if (successMsg) successMsg.style.display = 'flex';
-            })
-            .catch(() => {
-                // Even on error, show success (no-cors limitation)
-                newsletterForm.style.display = 'none';
-                if (successMsg) successMsg.style.display = 'flex';
-            });
+            try {
+                const payload = Object.fromEntries(new FormData(newsletterForm).entries());
+                const res = await fetch(WEB3FORMS_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    newsletterForm.style.display = 'none';
+                    if (successMsg) successMsg.style.display = 'flex';
+                } else {
+                    throw new Error(data.message || 'Submission failed');
+                }
+            } catch (err) {
+                showError('Something went wrong. Please try again or contact us on WhatsApp.');
+                submitBtn.innerHTML = btnDefault;
+                submitBtn.disabled = false;
+            }
         });
     }
 
@@ -234,6 +261,62 @@ document.addEventListener('DOMContentLoaded', () => {
                 1200: { slidesPerView: 4, spaceBetween: 30 }
             }
         });
+
+        // 5b. Demo Review Carousel (generated text testimonials)
+        const testimonialsWrapper = document.getElementById('testimonialsWrapper');
+        if (testimonialsWrapper) {
+            const testimonials = [
+                { name: 'Riya Sharma', location: 'Ahmedabad', trip: 'Maldives Luxury Escape', rating: 5, text: 'Absolutely magical! Every detail from the resort to the transfers was handled flawlessly. Eva Journeys turned our honeymoon into a dream.' },
+                { name: 'Aarav Patel', location: 'Gandhinagar', trip: 'Switzerland Alpine Magic', rating: 5, text: 'The Swiss Alps trip exceeded all expectations. Perfectly planned itinerary, premium hotels and zero stress. Highly recommended!' },
+                { name: 'Sneha Desai', location: 'Mehsana', trip: 'Kerala Backwaters', rating: 5, text: 'The houseboat experience was serene and beautiful. The team was available 24/7 and made us feel truly cared for throughout.' },
+                { name: 'Vikram Joshi', location: 'Palanpur', trip: 'Leh Ladakh Bike Trip', rating: 5, text: 'A bucket-list adventure done right. Great bikes, well-marked routes and an amazing guide. Best trip of my life so far!' },
+                { name: 'Pooja Mehta', location: 'Surat', trip: 'Dubai Desert Safari', rating: 5, text: 'From the Burj Khalifa to the desert safari, everything was top-class. Loved the personal touch and quick responses on WhatsApp.' },
+                { name: 'Karan Shah', location: 'Vadodara', trip: 'Bali Tropical Vibes', rating: 5, text: 'Stunning villas, smooth transfers and a beautifully crafted plan. Eva Journeys made our family trip completely hassle-free.' },
+                { name: 'Ananya Nair', location: 'Rajkot', trip: 'Paris Romance & Heritage', rating: 5, text: 'Paris was pure romance! The museum passes and hotel choice were perfect. Thank you for an unforgettable anniversary getaway.' },
+                { name: 'Rohan Trivedi', location: 'Ahmedabad', trip: 'Royal Rajasthan Tour', rating: 5, text: 'Heritage palaces, great food and seamless logistics. The team thought of everything before we even asked. Truly premium service.' }
+            ];
+
+            const avatarColors = ['#0e8369', '#FF6B6B', '#FFB703', '#1C2541', '#2bb594', '#E25555'];
+            const initials = (n) => n.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+            const starsHtml = (r) => Array.from({ length: 5 }, (_, i) =>
+                `<i class="fas fa-star${i < r ? '' : '-half-alt'}"></i>`).join('');
+
+            // Shuffle for a fresh order each visit
+            testimonials.sort(() => Math.random() - 0.5);
+
+            testimonials.forEach((t, idx) => {
+                const slide = document.createElement('div');
+                slide.className = 'swiper-slide';
+                slide.innerHTML = `
+                    <div class="testimonial-card">
+                        <i class="fas fa-quote-right quote-icon"></i>
+                        <div class="stars">${starsHtml(t.rating)}</div>
+                        <p class="review-text">${t.text}</p>
+                        <div class="reviewer">
+                            <div class="avatar-initials" style="background:${avatarColors[idx % avatarColors.length]}">${initials(t.name)}</div>
+                            <div class="reviewer-info">
+                                <h4>${t.name}</h4>
+                                <span>${t.location} &middot; ${t.trip}</span>
+                            </div>
+                        </div>
+                    </div>`;
+                testimonialsWrapper.appendChild(slide);
+            });
+
+            new Swiper('.testimonials-slider', {
+                slidesPerView: 1,
+                spaceBetween: 24,
+                grabCursor: true,
+                loop: true,
+                speed: 700,
+                autoplay: { delay: 4500, disableOnInteraction: false },
+                pagination: { el: '.testimonials-pagination', clickable: true },
+                breakpoints: {
+                    768: { slidesPerView: 2, spaceBetween: 28 },
+                    1100: { slidesPerView: 3, spaceBetween: 30 }
+                }
+            });
+        }
 
         // 6. Automated Review Screenshot Slideshow
         const slideshowContainer = document.getElementById('reviewSlideshow');
