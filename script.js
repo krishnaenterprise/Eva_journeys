@@ -2,10 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Initialize AOS (Animate on Scroll)
     if (typeof AOS !== 'undefined') {
         AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
+            duration: 900,
+            easing: 'ease-out-cubic',
             once: true,
-            offset: 50
+            offset: 80,
+            delay: 0,
+            anchorPlacement: 'top-bottom'
         });
     }
 
@@ -513,4 +515,132 @@ document.addEventListener('DOMContentLoaded', () => {
             tab.classList.add('active');
         });
     });
+
+    /* =====================================================================
+       PREMIUM MOTION LAYER — scroll progress, count-ups, parallax,
+       reveals, magnetic buttons, floating controls. Built on transform/
+       opacity only and gated behind prefers-reduced-motion.
+    ===================================================================== */
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 11. Scroll progress bar + back-to-top + navbar (single rAF-throttled handler)
+    const scrollProgress = document.getElementById('scrollProgress');
+    const backToTop = document.getElementById('backToTop');
+    let scrollTicking = false;
+
+    const onScrollFrame = () => {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
+        if (scrollProgress) scrollProgress.style.transform = `scaleX(${progress / 100})`;
+        if (backToTop) backToTop.classList.toggle('visible', scrollTop > 600);
+        scrollTicking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+        if (!scrollTicking) {
+            window.requestAnimationFrame(onScrollFrame);
+            scrollTicking = true;
+        }
+    }, { passive: true });
+    onScrollFrame();
+
+    if (backToTop) {
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // 12. Animated count-up for numbers (stats + hero trust badges)
+    const animateCount = (el) => {
+        const raw = (el.dataset.countTarget || el.textContent).trim();
+        const match = raw.match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/);
+        if (!match) return;                       // e.g. "∞" — leave untouched
+        if (!el.dataset.countTarget) el.dataset.countTarget = raw;
+
+        const [, prefix, numStr, suffix] = match;
+        const target = parseFloat(numStr);
+        const decimals = (numStr.split('.')[1] || '').length;
+        const duration = 1600;
+        const start = performance.now();
+        const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+
+        const tick = (now) => {
+            const p = Math.min((now - start) / duration, 1);
+            const val = (target * easeOut(p)).toFixed(decimals);
+            el.textContent = `${prefix}${val}${suffix}`;
+            if (p < 1) requestAnimationFrame(tick);
+            else el.textContent = `${prefix}${target.toFixed(decimals)}${suffix}`;
+        };
+        requestAnimationFrame(tick);
+    };
+
+    const countEls = document.querySelectorAll('.counter, .trust-item strong');
+    if (countEls.length) {
+        if (reduceMotion || !('IntersectionObserver' in window)) {
+            // Leave final values as-is
+        } else {
+            const countObserver = new IntersectionObserver((entries, obs) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        animateCount(entry.target);
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.6 });
+            countEls.forEach((el) => countObserver.observe(el));
+        }
+    }
+
+    // 13. Generic reveal-on-scroll for elements not handled by AOS
+    const revealEls = document.querySelectorAll('[data-reveal]');
+    if (revealEls.length && !reduceMotion && 'IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        revealEls.forEach((el) => revealObserver.observe(el));
+    } else {
+        revealEls.forEach((el) => el.classList.add('revealed'));
+    }
+
+    // 14. Subtle hero parallax (desktop pointers only)
+    const heroContent = document.querySelector('.hero-content');
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
+    if (heroContent && finePointer && !reduceMotion) {
+        const hero = document.querySelector('.hero');
+        let parallaxRaf = null;
+        hero.addEventListener('mousemove', (e) => {
+            if (parallaxRaf) return;
+            parallaxRaf = requestAnimationFrame(() => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 16;
+                const y = (e.clientY / window.innerHeight - 0.5) * 16;
+                heroContent.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+                parallaxRaf = null;
+            });
+        });
+        hero.addEventListener('mouseleave', () => {
+            heroContent.style.transform = 'translate3d(0,0,0)';
+        });
+    }
+
+    // 15. Magnetic pull on primary buttons (desktop pointers only)
+    if (finePointer && !reduceMotion) {
+        document.querySelectorAll('.btn-primary, .btn-search-premium, .fab-whatsapp').forEach((btn) => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const mx = e.clientX - rect.left - rect.width / 2;
+                const my = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${mx * 0.18}px, ${my * 0.28}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+            });
+        });
+    }
 });
